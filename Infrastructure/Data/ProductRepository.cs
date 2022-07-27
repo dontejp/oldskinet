@@ -23,12 +23,22 @@ namespace Infrastructure.Data
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            return await _context.Products.FindAsync(id);
+            return await _context.Products
+                .Include(p => p.ProductType) 
+                .Include(p => p.ProductBrand)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            /*line 29: finds the first line of data that matches what were looking for 
+              we could replace this with SingleOrDefault... They do the same thing...
+              however the later throws and exeption if there is duplicate the original does not
+            */
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Include(p => p.ProductType)    // when in postman these allow us to grab the product type and brand so it wont appear as null
+                .Include(p => p.ProductBrand)
+                .ToListAsync(); // this is the point where our query is sent to sql and get the data back
         }
 
         public async Task<IReadOnlyList<ProductType>> GetProductTypesAsync()
