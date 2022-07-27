@@ -28,8 +28,8 @@ namespace Infrastructure.Data
                 .Include(p => p.ProductBrand)
                 .FirstOrDefaultAsync(p => p.Id == id);
             /*line 29: finds the first line of data that matches what were looking for 
-              we could replace this with SingleOrDefault... They do the same thing...
-              however the later throws and exeption if there is duplicate the original does not
+            we could replace this with SingleOrDefault... They do the same thing...
+            however the later throws and exeption if there is duplicate the original does not
             */
         }
 
