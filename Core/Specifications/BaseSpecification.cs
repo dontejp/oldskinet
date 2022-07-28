@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core.Specifications
 {
+    //This is needed to make the GenericRepository more customizable
+
     public class BaseSpecification<T> : ISpecification<T>
     {
         public BaseSpecification(Expression<Func<T, bool>> criteria)
