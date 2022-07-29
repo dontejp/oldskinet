@@ -10,6 +10,12 @@ namespace Core.Specifications
 
     public class BaseSpecification<T> : ISpecification<T>
     {
+        public BaseSpecification()
+        {
+            /* this empty constructer was needed to allow us to get the BaseSpecification<T> 
+            into our ProductsWithTypesAndBrandsSpecification Class*/
+        }
+
         public BaseSpecification(Expression<Func<T, bool>> criteria)
         {
             Criteria = criteria;
