@@ -13,9 +13,8 @@ using AutoMapper;
 
 namespace API.Controllers
 {
-    [ApiController]     //validates that the root parameter is an integar 
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+
+    public class ProductsController : BaseApiController
     {
         //Below was used before we added the generic repository
         // private readonly IProductRepository _repo;
