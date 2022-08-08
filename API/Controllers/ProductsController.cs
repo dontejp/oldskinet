@@ -10,6 +10,7 @@ using Core.Interfaces;
 using Core.Specifications;
 using API.Dtos;
 using AutoMapper;
+using API.Errors;
 
 namespace API.Controllers
 {
@@ -49,12 +50,24 @@ namespace API.Controllers
         }
 
         //Below is expecting to see an integar below on line 36
-        [HttpGet("{id}")]  
+        [HttpGet("{id}")]
+
+        //Below lets us allow different types of responses in our API (Swagger)
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        //Below lets us specify the type of response we get inside of the return... as far as the status code
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
 
             var product = await _productsRepo.GetEntityWithSpec(spec);
+
+            //below allows us to return a 404 error isntead of a 204 error in swagger
+
+            if (product == null) return NotFound(new ApiResponse(404));
+
 
             // return new ProductToReturnDto
             // {
@@ -69,7 +82,7 @@ namespace API.Controllers
             // };
 
             return _mapper.Map<Product, ProductToReturnDto>(product);
-        } 
+        }
 
 
         [HttpGet("brands")]
