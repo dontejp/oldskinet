@@ -18,6 +18,16 @@ namespace Infrastructure.Data
             {
                 query = query.Where(spec.Criteria); //p => p.ProductTypeId = id;
             }
+
+            //below is for the pagination to order them
+            if(spec.OrderBy != null)
+            {
+                query = query.OrderBy(spec.OrderBy); //p => p.ProductTypeId = id;
+            }
+            if(spec.OrderByDescending != null)
+            {
+                query = query.OrderByDescending(spec.OrderByDescending); //p => p.ProductTypeId = id;
+            }
             //below is taking our include statements and passing them into our query
             query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
             return query;

@@ -58,9 +58,9 @@ namespace API.Controllers
 
         //Below lets us specify the type of response we get inside of the return... as far as the status code
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
+        public async Task<ActionResult<ProductToReturnDto>> GetProduct(string sort)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(id);
+            var spec = new ProductsWithTypesAndBrandsSpecification(sort);
 
             var product = await _productsRepo.GetEntityWithSpec(spec);
 
