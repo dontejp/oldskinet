@@ -9,7 +9,12 @@ namespace Core.Specifications
 {
     public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product> //we specify the type we are using here <Product>
     {
-        public ProductsWithTypesAndBrandsSpecification(string sort)
+
+        public ProductsWithTypesAndBrandsSpecification(string sort, int? brandId, int? typeId)      // "int?" dictates that this is anoptional parameter
+            : base(x =>
+                (!brandId.HasValue || x.ProductBrandId == brandId ) &&  //checks for the value of the brandId ... if the left side of the || operator is false we execute the right side
+                (!typeId.HasValue || x.ProductTypeId == typeId)
+            )
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
