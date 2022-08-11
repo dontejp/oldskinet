@@ -12,6 +12,8 @@ namespace Core.Specifications
 
         public ProductsWithTypesAndBrandsSpecification(ProductSpecParams productParams)      // "int?" dictates that this is anoptional parameter
             : base(x =>
+                (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains
+                (productParams.Search)) && 
                 (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId ) &&  //checks for the value of the brandId ... if the left side of the || operator is false we execute the right side
                 (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId)
             )
