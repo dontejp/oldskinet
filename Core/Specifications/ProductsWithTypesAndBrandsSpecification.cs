@@ -10,20 +10,22 @@ namespace Core.Specifications
     public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product> //we specify the type we are using here <Product>
     {
 
-        public ProductsWithTypesAndBrandsSpecification(string sort, int? brandId, int? typeId)      // "int?" dictates that this is anoptional parameter
+        public ProductsWithTypesAndBrandsSpecification(ProductSpecParams productParams)      // "int?" dictates that this is anoptional parameter
             : base(x =>
-                (!brandId.HasValue || x.ProductBrandId == brandId ) &&  //checks for the value of the brandId ... if the left side of the || operator is false we execute the right side
-                (!typeId.HasValue || x.ProductTypeId == typeId)
+                (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId ) &&  //checks for the value of the brandId ... if the left side of the || operator is false we execute the right side
+                (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId)
             )
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
             AddOrderBy(x => x.Name);
+            ApplyPaging(productParams.PageSize * (productParams.PageIndex -1),
+            productParams.PageSize);
 
-            if(!string.IsNullOrEmpty(sort))
+            if(!string.IsNullOrEmpty(productParams.Sort))
             {
 
-                switch(sort)
+                switch(productParams.Sort)
                 {
                     case "priceAsc":
                         AddOrderBy(p => p.Price);

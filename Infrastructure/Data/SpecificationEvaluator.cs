@@ -28,6 +28,11 @@ namespace Infrastructure.Data
             {
                 query = query.OrderByDescending(spec.OrderByDescending); //p => p.ProductTypeId = id;
             }
+            if(spec.IsPagingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
+
             //below is taking our include statements and passing them into our query
             query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
             return query;
