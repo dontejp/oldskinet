@@ -39,9 +39,13 @@
 
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <header>
-          <span>Showing<strong>10</strong> of <strong>16</strong> Results</span>
-        </header>
+
+        <app-paging-header
+          [totalCount] = "totalCount"
+          [pageSize]="this.shopParams.pageSize"
+          [pageNumber]="this.shopParams.pageNumber">
+        </app-paging-header>
+
         <div class="form-inline my-3">
           <input id="ip1" style="width: 300px" placeholder="Search"
           type="text">
@@ -56,7 +60,9 @@
           <app-product-item [product]="item"></app-product-item>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
+
+
+      <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
         <pagination
         [boundaryLinks]="true"
         [totalItems]="this.totalCount"

@@ -1,0 +1,21 @@
+<header>
+  <!-- if the pagination header has a totalcount AND its greater than 0 -->
+  <span *ngIf="totalCount && totalCount > 0" >
+    Showing
+    <strong>
+    <!-- below allows our pagination header to show the correct numbers when cycling through pages-->
+    {{(pageNumber-1) * pageSize+1}} -
+    {{pageNumber*pageSize
+        > this.totalCount
+        ? this.totalCount
+        : pageNumber*pageSize
+    }}
+    <!-- above checks if its greater than total count... if so show total ... if not show page number * pagesize-->
+  </strong> of <strong>
+    {{this.totalCount}}</strong> Results</span>
+
+    <!-- below shows if there are no results found -->
+    <span *ngIf="totalCount === 0">
+    There are <strong>0</strong> results for this filter
+    </span>
+</header>
