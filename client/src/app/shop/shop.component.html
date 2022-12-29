@@ -47,10 +47,11 @@
         </app-paging-header>
 
         <div class="form-inline my-3">
-          <input id="ip1" style="width: 300px" placeholder="Search"
+          <!-- below the keyup.enter lets the search bar be used without hitting the search button -->
+          <input (keyup.enter)="onSearch()" id="ip1" #search style="width: 300px" placeholder="Search"
           type="text">
-          <button id="btn1" class="btn btn-outline-primary my-2">Search</button>
-          <button id="btn1" class="btn btn-outline-primary my-2">Reset</button>
+          <button (click)="onSearch()" id="btn1" class="btn btn-outline-primary my-2">Search</button>
+          <button (click)="onReset()" id="btn1" class="btn btn-outline-primary my-2">Reset</button>
         </div>
       </div>
 
